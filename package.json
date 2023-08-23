@@ -1,0 +1,15 @@
+{
+  "name": "blockchain-store-journals",
+  "version": "1.0.0",
+  "description": "",
+  "main": "blockchain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Emelie Ribring",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.1.1"
+  }
+}
