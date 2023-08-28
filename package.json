@@ -10,6 +10,8 @@
   "author": "Emelie Ribring",
   "license": "ISC",
   "dependencies": {
-    "crypto-js": "^4.1.1"
+    "crypto-js": "^4.1.1",
+    "express": "^4.18.2",
+    "validator": "^13.11.0"
   }
 }
