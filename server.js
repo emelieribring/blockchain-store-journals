@@ -8,16 +8,16 @@ const Blockchain = require('./blockchain');
 const journalChain = new Blockchain();
 
 journalChain.createBlock(1, 'previousHash', 'currentHash');
-journalChain.addJournalData('Matilda', 'Blablabla', 'Emelie', 'Danderyd Hospital');
+journalChain.addJournalData('Matilda', '980505', 'Astma', 'Astma-medicin', 'Blablabla', 'Emelie', 'Danderyd Hospital');
 journalChain.createBlock(2, 'previousHash', 'currentHash');
 journalChain.createBlock(3, 'previousHash', 'currentHash');
 journalChain.createBlock(4, 'previousHash', 'currentHash');
-journalChain.addJournalData('Isabell', 'litet meddelande', 'Ida', 'Södersjukhuset');
+journalChain.addJournalData('Isabell', '980505', 'Astma', 'Astma-medicin','litet meddelande', 'Ida', 'Södersjukhuset');
 journalChain.createBlock(5, 'previousHash', 'currentHash');
 
 app.post('/addData', (req, res) => {
-  const { patient, message, sender, recipient } = req.body;
-  const newIndex = journalChain.addJournalData(patient, message, sender, recipient); 
+  const { patient, patientDateOfBirth, diagnosis, medicine, message, sender, recipient } = req.body;
+  const newIndex = journalChain.addJournalData(patient, patientDateOfBirth, diagnosis, medicine, message, sender, recipient); 
   res.json({ message: `Journaldata kommer att läggas till i block ${newIndex}` });
 });
 

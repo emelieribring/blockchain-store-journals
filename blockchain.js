@@ -51,13 +51,13 @@ Blockchain.prototype.getLastBlock = function () {
 
 
 Blockchain.prototype.addJournalData = function(patient, patientDateOfBirth, diagnosis, medicine, message, sender, recipient) {
-    if (!validator.isString(patient) || validator.isEmpty(patient) ||
-        !validator.isString(patientDateOfBirth) || validator.isEmpty(patientDateOfBirth) ||
-        !validator.isString(diagnosis) || validator.isEmpty(diagnosis) ||
-        !validator.isString(medicine) || validator.isEmpty(medicine) ||
-        !validator.isString(message) || validator.isEmpty(message) ||
-        !validator.isString(sender) || validator.isEmpty(sender) ||
-        !validator.isString(recipient) || validator.isEmpty(recipient)) {
+    if (validator.isEmpty(patient) ||
+        validator.isEmpty(patientDateOfBirth) ||
+        validator.isEmpty(diagnosis) ||
+        validator.isEmpty(medicine) ||
+        validator.isEmpty(message) ||
+        validator.isEmpty(sender) ||
+        validator.isEmpty(recipient)) {
         throw new Error('Ogiltiga eller tomma fält i journaldata.');
     }
 
