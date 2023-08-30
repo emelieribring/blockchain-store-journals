@@ -9,17 +9,22 @@ function Blockchain() {
 }
 
 Blockchain.prototype.createGenesisBlock = function () {
-    const genesisBlock = {
-        index: 0,
-        timestamp: Math.floor(Date.now() / 1000),
-        data: [],
-        nonce: 0,
-        previousHash: '0',
-    };
+    if (this.chain.length === 0) {
+        const genesisBlock = {
+            index: 0,
+            timestamp: Math.floor(Date.now() / 1000),
+            data: [],
+            nonce: 0,
+            previousHash: 'Genesis',
+        };
 
-    genesisBlock.hash = this.calculateHash(genesisBlock);
-    this.chain.push(genesisBlock);
+        genesisBlock.hash = this.calculateHash(genesisBlock);
+        this.chain.push(genesisBlock);
+    } else {
+        console.log("Chain already contains blocks. Genesis block cannot be created.");
+    }
 };
+
 
 Blockchain.prototype.createBlock = function () {
     const previousBlock = this.getLastBlock();
