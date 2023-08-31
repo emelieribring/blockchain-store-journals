@@ -2,12 +2,12 @@
   "name": "blockchain-store-journals",
   "version": "1.0.0",
   "description": "",
-  "main": "serverNew.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node serverNew.js",
-    "node-1": "nodemon serverNew.js 3001 http://localhost:3001",
-    "node-2": "nodemon serverNew.js 3002 http://localhost:3002",
-    "node-3": "nodemon serverNew.js 3003 http://localhost:3003"
+    "start": "node server.js",
+    "node-1": "nodemon server.js 3001 http://localhost:3001",
+    "node-2": "nodemon server.js 3002 http://localhost:3002",
+    "node-3": "nodemon server.js 3003 http://localhost:3003"
   },
   "author": "Emelie Ribring",
   "license": "ISC",

@@ -1,5 +1,6 @@
 const sha256 = require('sha256');
 const validator = require('validator');
+const { v4: uuidv4 } = require('uuid');
 
 
 function Blockchain() {
@@ -27,7 +28,6 @@ Blockchain.prototype.createBlock = function (nonce, previousHash, hash) {
     return block;
   };
 
-// Hämta senaste blocket...
 Blockchain.prototype.getLastBlock = function () {
   return this.chain.at(-1);
 };
@@ -50,7 +50,7 @@ while (hash.substring(0, 4) !== '0000') {
 return nonce;
 };  
 
-Blockchain.prototype.addJournalData = function(patient, patientDateOfBirth, diagnosis, medicine, message, sender, recipient) {
+Blockchain.prototype.addJournalData = function(patient, patientDateOfBirth, diagnosis, medicine, message, sender, recipient,) {
     if (validator.isEmpty(patient) ||
         validator.isEmpty(patientDateOfBirth) ||
         validator.isEmpty(diagnosis) ||
@@ -76,43 +76,46 @@ Blockchain.prototype.addJournalData = function(patient, patientDateOfBirth, diag
         medicine: sanitizedMedicine,
         message: sanitizedMessage,
         sender: sanitizedSender,
-        recipient: sanitizedRecipient
+        recipient: sanitizedRecipient,
+        journalId: uuidv4().split('-').join(''),
     };
 
-    this.pendingList.push(journalData);
-
-    return this.getLastBlock()['index'] + 1;
+    return journalData;
 };
 
-/* Blockchain.prototype.validateChain = function (blockChain) {
-    let isValid = true;
-  
-    for (i = 1; i < blockChain.length; i++) {
-      const block = blockChain[i];
-      const previousBlock = blockChain[i - 1];
-      const hash = this.createHash(previousBlock.hash, { data: block.data, index: block.index }, block.nonce);
-  
-      if (hash !== block.hash) {
-        isValid = false;
-      }
-  
-      if (block.previousHash !== previousBlock.hash) {
-        isValid = false;
-      }
-    }
-  
- // Validera genisis blocket...
-    const genesisBlock = blockChain[0];
-    const isGenesisNonceValid = genesisBlock.nonce === 1;
-    const isGenesisHashValid = genesisBlock.hash === 'Genesis';
-    const isGenesisPreviousHashValid = genesisBlock.previousHash === 'Genesis';
-    const hasNoData = genesisBlock.data.length === 0;
-  
-    if (!isGenesisNonceValid || !isGenesisHashValid || !isGenesisPreviousHashValid || !hasNoData) {
+Blockchain.prototype.addToPendingList = function (journalData) {
+  this.pendingList.push(journalData);
+  return this.getLastBlock()['index'] + 1;
+};
+
+Blockchain.prototype.validateChain = function (blockChain) {
+  let isValid = true;
+
+  for (i = 1; i < blockChain.length; i++) {
+    const block = blockChain[i];
+    const previousBlock = blockChain[i - 1];
+    const hash = this.createHash(previousBlock.hash, { data: block.data, index: block.index }, block.nonce);
+
+    if (hash !== block.hash) {
       isValid = false;
-    } 
-  
-    return isValid;
-}; */
+    }
+
+    if (block.previousHash !== previousBlock.hash) {
+      isValid = false;
+    }
+  }
+
+  const genesisBlock = blockChain.at(0);
+  const isGenesisNonceValid = genesisBlock.nonce === 1;
+  const isGenesisHashValid = genesisBlock.hash === 'Genisis';
+  const isGenesisPreviousHashValid = genesisBlock.previousHash === 'Genisis';
+  const hasNoData = genesisBlock.data.length === 0;
+
+  if (!isGenesisNonceValid || !isGenesisHashValid || !isGenesisPreviousHashValid || !hasNoData) {
+    isValid = false;
+  }
+
+  return isValid;
+};
 
 module.exports = Blockchain;
