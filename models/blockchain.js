@@ -118,4 +118,20 @@ Blockchain.prototype.validateChain = function (blockChain) {
   return isValid;
 };
 
+
+Blockchain.prototype.findBlock = function (blockHash) {
+  return this.chain.find((block) => block.hash === blockHash);
+};
+
+Blockchain.prototype.findJournal = function (journalId) {
+  const block = this.chain.find((block) => block.data.find((journal) => journal.journalId === journalId));
+
+  if (!block) {
+    return null;
+  } else {
+    const journal = block.data.find((journal) => journal.journalId === journalId);
+    return { journal, block };
+  }
+};
+
 module.exports = Blockchain;

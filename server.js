@@ -11,13 +11,11 @@ const PORT = process.argv[2];
 
 app.use(express.json());
 
-
 app.use('/api/v1/blockchain', blockchain);
 app.use('/api/v1/block', block);
 app.use('/api/v1/journal', journal);
 app.use('/api/v1/node', node);
 app.use('/api/v1/consensus', consensus);
-
 
 
 app.listen(PORT, () => console.log(`Server kör på port ${PORT}`));
